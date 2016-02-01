@@ -3,8 +3,8 @@
 import config
 import numpy as np
 
-class Particles:
-    positions = np.zeros(shape=(config.particles, 3),dtype="float64");
-    velocities = np.zeros(shape=(config.particles, 3),dtype="float64");
-    forces = np.zeros(shape=(config.particles, 3),dtype="float64");
-    
+class Particles:    
+    def __init__(self, nParticles):
+        self.positions = np.zeros(shape=(nParticles, 3),dtype="float64");
+        self.velocities = np.zeros(shape=(nParticles, 3),dtype="float64");
+        self.forces = np.zeros(shape=(nParticles, 3),dtype="float64");

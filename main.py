@@ -2,14 +2,16 @@
 
 # Import classes and functions (In that order)
 import config
-# Atom storage
+from particles import Particles
+from initSimulation import initSimulation
 # Init function
 # Atom update (Which itself includes pos+vel update / BC)
 # Calculate temperature
 
 
 # Initialize position + velocity
-
+particles = Particles(config.nParticles);
+initSimulation(particles);
 # Main loop
 for i in range(config.iterations):
     # Update position
@@ -17,7 +19,7 @@ for i in range(config.iterations):
     # Calculate temperature
     
     # Increment
-    i += 1;
+    i=i;
     
 # Plot temperature & positions
 
