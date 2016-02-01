@@ -11,16 +11,16 @@ import scipy.stats as stats
 
 
 def initVelocities(particles):             
-    for i in range(config.nParticles):  
-        # Speeds
-        speed=stats.maxwell.rvs(loc=0,scale=config.a,size=1)          
+    # Speeds
+    speed=stats.maxwell.rvs(loc=0,scale=config.a,size=config.nParticles)          
+    
+    # Vectors       
+    phi = np.random.uniform(0, np.pi*2, config.nParticles)
+    costheta = np.random.uniform(-1, 1, config.nParticles)
+    theta = np.arccos( costheta )
+    particles.velocities[:,0] = speed * np.sin( theta ) * np.cos( phi )
+    particles.velocities[:,1] = speed * np.sin( theta ) * np.sin( phi )
+    particles.velocities[:,2] = speed * np.cos( theta )
         
-        # Vectors       
-        phi = np.random.uniform(0,np.pi*2)
-        costheta = np.random.uniform(-1,1)
-        theta = np.arccos( costheta )
-        particles.velocities[i,0] = speed * np.sin( theta ) * np.cos( phi )
-        particles.velocities[i,1] = speed * np.sin( theta ) * np.sin( phi )
-        particles.velocities[i,2] = speed * np.cos( theta )
-        
-    return particles
+    # Set center of mass velocity to zero
+    particles.velocities -= np.mean(particles.velocities,axis=0);
