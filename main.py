@@ -1,7 +1,7 @@
 # Main file for argon
 
 # Import classes and functions (In that order)
-# Config
+import config
 # Atom storage
 # Init function
 # Atom update (Which itself includes pos+vel update / BC)
@@ -11,8 +11,7 @@
 # Initialize position + velocity
 
 # Main loop
-i=0;
-for i in range(1000):
+for i in range(config.iterations):
     # Update position
     
     # Calculate temperature
