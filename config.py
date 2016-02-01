@@ -1,5 +1,6 @@
 # Config file
 
+particles = 64;
 iterations = 2000; # Number of iterations
 dt = 1; # Time step (seconds)
 epsilon = 1.65 * (10 ** (-21)); # Strengt of potential energy in Joule 
