@@ -9,6 +9,7 @@ from argonMove import argonMove
 from checkResults import checkResults
 from plotResults import plotResults
 import timeit
+from rescaleVelocity import rescaleVelocity
 
 # Start Timer
 start = timeit.default_timer()
@@ -28,6 +29,9 @@ for i in range(config.iterations):
     argonMove(particles);
     # Calculate temperature
     checkResults(particles, temp, eK, eP, i);
+    # Rescale 
+    if (i+1) % config.rescaleIter == 0:
+        rescaleVelocity(particles, temp[i])
     #
     print("Iteration", i+1, "completed; Time is: ", i*config.dt);
     
