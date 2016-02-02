@@ -8,7 +8,10 @@ from initSimulation import initSimulation
 from argonMove import argonMove
 from checkResults import checkResults
 from plotResults import plotResults
+import timeit
 
+# Start Timer
+start = timeit.default_timer()
 
 # Initialize position + velocity
 particles = Particles(config.nParticles);
@@ -22,7 +25,11 @@ eP = np.zeros(config.iterations);
 # Main loop
 for i in range(config.iterations):
     # Update position
+    print(particles.positions[1,:])
+    print(particles.velocities[1,:])
     argonMove(particles);
+    print(particles.positions[1,:])
+    print(particles.velocities[1,:])
     # Calculate temperature
     checkResults(particles, temp, eK, eP, i);
     #
@@ -32,4 +39,6 @@ for i in range(config.iterations):
 # Show program end
 plotResults(temp, eK, eP)
 
-print("Program ended at i =", i);
+# Stop timer
+stop = timeit.default_timer()
+print("Program ended in  =", int(stop - start), "seconds");
