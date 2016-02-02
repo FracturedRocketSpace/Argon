@@ -25,15 +25,11 @@ eP = np.zeros(config.iterations);
 # Main loop
 for i in range(config.iterations):
     # Update position
-    print(particles.positions[1,:])
-    print(particles.velocities[1,:])
     argonMove(particles);
-    print(particles.positions[1,:])
-    print(particles.velocities[1,:])
     # Calculate temperature
     checkResults(particles, temp, eK, eP, i);
     #
-    print("Iteration =", i);
+    print("Iteration", i+1, "completed; Time is: ", i*config.dt);
     
 
 # Show program end
