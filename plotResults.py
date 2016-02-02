@@ -15,12 +15,12 @@ def plotResults(temp, eK, eP):
     plt.title('Kinetic Energy')
     plt.xlabel('Time (s)')
     plt.ylabel('Kinetic Energy (K)')
-    plt.plot( np.linspace(0, config.dt, config.iterations), eK)
+    plt.plot( np.linspace(0, config.dt*config.iterations, config.iterations), eK)
     
     plt.figure(3)
     plt.title('Potential energy')
     plt.xlabel('Time (s)')
     plt.ylabel('Potential Energy (K)')
-    plt.plot( np.linspace(0, config.dt, config.iterations), eP)
+    plt.plot( np.linspace(0, config.dt*config.iterations, config.iterations), eP)
     
     plt.show()
