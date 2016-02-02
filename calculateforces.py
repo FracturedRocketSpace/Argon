@@ -10,6 +10,7 @@ def cellOffset(current,other):
 
 #calculate forces
 def calculateForces(particles):
+    particles.forces=np.zeros(shape=(c.nParticles,3), dtype="float")
     for p1 in range(0,c.nParticles):
         for p2 in range(0,p1):
             cell_offset = cellOffset(p1,p2);
