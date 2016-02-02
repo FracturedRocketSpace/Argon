@@ -3,7 +3,7 @@
 import numpy as np
 
 nParticles = 32;
-iterations = 500; # Number of iterations
+iterations = 10; # Number of iterations
 epsilon = 1; # Strengt of potential energy in Joule 
 sigma = 1 ; # 0 point of potential in meters
 kB = 1; # Boltzmann constant in Joule per Kelvin

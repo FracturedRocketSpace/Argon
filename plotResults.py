@@ -14,7 +14,7 @@ def plotResults(particles, temp, eK, eP):
     plt.plot( np.linspace(0, config.dt*config.iterations, config.iterations), temp)
     
     plt.figure(2)
-    plt.title('Kinetic Energy')
+    plt.title('Energy')
     plt.xlabel('Time (s)')
     plt.ylabel('Energy (K)')
     plt.plot( np.linspace(0, config.dt*config.iterations, config.iterations), eK, label="eK")
