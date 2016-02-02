@@ -13,8 +13,10 @@ def argonMove(particles):
         particles.positions[p1,:] += particles.velocities[p1,:] * c.dt + 0.5 / c.mass*particles.forces[p1,:] * c.dt ** 2
         keepParticlesInCell(particles);
         particles.velocities[p1,:] += 0.5/c.mass*particles.forces[p1,:] * c.dt
-        calculateForces(particles)
-        particles.velocities[p1,:] += 0.5/c.mass*particles.forces[p1,:] * c.dt
+        
+    calculateForces(particles)
+    for p1 in range(c.nParticles):
+        particles.velocities[p1,:] += 0.5/c.mass*particles.forces[p1,:] * c.dt   
 
 
     
