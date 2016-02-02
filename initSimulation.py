@@ -6,5 +6,5 @@ from calculateforces import calculateForces
 
 def initSimulation(particles):
     initPositions(particles);
-    #initVelocities(particles);
+    initVelocities(particles);
     calculateForces(particles);
