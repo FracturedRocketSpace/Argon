@@ -1,6 +1,5 @@
 #main data containing file for Argon
 
-import config
 import numpy as np
 
 class Particles:    

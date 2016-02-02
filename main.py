@@ -9,7 +9,6 @@ from initSimulation import initSimulation
 from ComputeTemp import ComputeTemp
 # Init function
 # Atom update (Which itself includes pos+vel update / BC)
-# Calculate temperature
 
 
 # Initialize position + velocity
@@ -23,8 +22,7 @@ for i in range(config.iterations):
     # Calculate temperature
     Temp[i]=ComputeTemp(particles)
     
-# Plot temperature & positions
 
 # Show program end
-print("Program ended at i =", i);
 plt.plot(Temp)
+print("Program ended at i =", i);

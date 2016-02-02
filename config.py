@@ -11,5 +11,5 @@ kB = 1.38 * (10 ** (-23)); # Boltzmann constant in Joule per Kelvin
 mass = 6.69 * (10 ** (-26)); # Mass of argon in kg
 tInitial = 300; # Initial temperatyre Kelvin
 tBoundary = 300; # Boundary temperature for solid walls in Kelvin
-lCalc = 100; # Length of calculation cell in meters
+lCalc = int( (nParticles/4)**(1/3) ) * 525.6 * (10 ** (-26)); # Length of calculation cell in meters, 525.6 pm is unitCell
 a=np.sqrt(kB*tInitial/mass); # Used for Maxwell distribution

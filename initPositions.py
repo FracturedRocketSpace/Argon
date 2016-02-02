@@ -30,4 +30,3 @@ def initPositions(particles):
                     particles.positions[n,2] = ( 0.25 + z + zCell[k] ) * Lcell
                     n += 1
                     
-    return particles

@@ -2,9 +2,9 @@
 
 from initPositions import initPositions
 from initVelocities import initVelocities
-#import calculateForce
+from calculateforces import calculateForces
 
 def initSimulation(particles):
     initPositions(particles);
     initVelocities(particles);
-    #particles = calculateForce(particles);
+    calculateForces(particles);
