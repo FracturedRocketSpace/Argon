@@ -2,6 +2,7 @@
 
 import config
 import matplotlib.pyplot as plt
+from mpl_toolkits.mplot3d import Axes3D
 
 def plotResults(temp, eK, eP):
     plt.figure(1)
@@ -21,5 +22,10 @@ def plotResults(temp, eK, eP):
     plt.xlabel('Iteration')
     plt.ylabel('Potential Energy (K)')
     plt.plot(range(config.iterations), eP)
+    
+    fig = plt.figure(4)
+    ax = fig.add_subplot(111, projection='3d')
+    ax.scatter(particles.positions[:,0], particles.positions[:,1], -particles.positions[:,2], zdir='z', c= 'red')
+
     
     plt.show()
