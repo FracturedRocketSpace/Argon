@@ -12,7 +12,6 @@ def cellOffset(current, other):
 def calculateForces(particles):
     particles.forces=np.zeros(shape=(c.nParticles,3), dtype="float64")
     for p1 in range(1,c.nParticles):
-        #for p2 in range(p1):
         cell_offset = cellOffset(particles.positions[p1,:], particles.positions[range(p1),:]) ;
         new_p2_position = particles.positions[range(p1),:] + cell_offset*c.lCalc;
         r =  np.sum( (particles.positions[p1,:]-new_p2_position)**2, axis=1) 

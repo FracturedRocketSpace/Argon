@@ -33,7 +33,7 @@ for i in range(config.iterations):
     if (i+1) % config.rescaleIter == 0:
         rescaleVelocity(particles, temp[i])
     #
-    print("Iteration", i+1, "completed; Time is: ", i*config.dt);
+    print("Iteration", i+1, "completed; Time is: ", round(i*config.dt, 3) );
     
 
 # Show program end
