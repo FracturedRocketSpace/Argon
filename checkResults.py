@@ -1,8 +1,10 @@
 #
 
 import config
+import numpy as np
 import scipy.spatial.distance as sc
 from calculateforces import cellOffset
+
 
 
 def ComputeTemp(particles, temp, eK, i):
@@ -14,12 +16,13 @@ def ComputeeK(particles, eK, i):
     
 def ComputeeP(particles, eP, i):
     for p1 in range(0,config.nParticles):
-        for p2 in range(0,p1):
-            cell_offset = cellOffset( particles.positions[p1,:], particles.positions[p2,:] );
-            new_p2_position = particles.positions[p2,:]+cell_offset*config.lCalc;
-            r = sc.euclidean(particles.positions[p1,:],new_p2_position);
-            V= 4*config.epsilon*((config.sigma/r)**12-(config.sigma/r)**6);
-            eP[i] += V
+        #for p2 in range(p1):
+        cell_offset = cellOffset(particles.positions[p1,:], particles.positions[range(p1),:]) ;
+        new_p2_position = particles.positions[range(p1),:] + cell_offset*config.lCalc;
+        r =  np.sum( (particles.positions[p1,:]-new_p2_position)**2, axis=1) #actually r^2
+        
+        V = 4 * config.epsilon * ((config.sigma/r)**6-(config.sigma/r)**3)        
+        eP[i] += sum(V)
     
 def checkResults(particles, temp, eK, eP, i):
     ComputeeK(particles, eK, i)
