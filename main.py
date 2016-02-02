@@ -37,7 +37,7 @@ for i in range(config.iterations):
     
 
 # Show program end
-plotResults(temp, eK, eP)
+plotResults(particles, temp, eK, eP)
 
 # Stop timer
 stop = timeit.default_timer()
