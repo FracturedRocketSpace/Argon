@@ -10,7 +10,7 @@ def keepParticlesInCell(particles):
 
 def argonMove(particles):
     particles.positions += particles.velocities * c.dt + 0.5 / c.mass*particles.forces * c.dt ** 2
-    #keepParticlesInCell(particles);
+    keepParticlesInCell(particles);
     particles.velocities += 0.5/c.mass*particles.forces* c.dt
         
     calculateForces(particles)

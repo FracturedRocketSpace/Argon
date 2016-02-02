@@ -10,8 +10,11 @@ import config
 
 def initPositions(particles):
     # Number and length of unit FCC unit cells    
-    Nc=round( (config.nParticles/4)**(1/3) )
+    Nc=0;
+    while 4*(Nc ** 3) < config.nParticles:
+        Nc += 1;
     Lcell=config.lCalc/Nc;
+    print('Lcell is: ', Lcell);
     
     
     # Positions of particles in FCC unit cell
@@ -25,8 +28,9 @@ def initPositions(particles):
         for y in range(Nc):
             for z in range(Nc):
                 for k in range(4):
-                    particles.positions[n,0] = ( 0.25 + x + xCell[k] ) * Lcell #0.25 to prevent particles on boundary
-                    particles.positions[n,1] = ( 0.25 + y + yCell[k] ) * Lcell
-                    particles.positions[n,2] = ( 0.25 + z + zCell[k] ) * Lcell
-                    n += 1
+                    if n<config.nParticles:
+                        particles.positions[n,0] = ( 0.25 + x + xCell[k] ) * Lcell #0.25 to prevent particles on boundary
+                        particles.positions[n,1] = ( 0.25 + y + yCell[k] ) * Lcell
+                        particles.positions[n,2] = ( 0.25 + z + zCell[k] ) * Lcell
+                        n += 1
                     
