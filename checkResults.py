@@ -15,7 +15,7 @@ def ComputeeK(particles, eK, i):
 def ComputeeP(particles, eP, i):
     for p1 in range(0,config.nParticles):
         for p2 in range(0,p1):
-            cell_offset = cellOffset((particles.positions[p1,:],particles.positions[p1,:]));
+            cell_offset = cellOffset( particles.positions[p1,:], particles.positions[p1,:] );
             new_p2_position = particles.positions[p2,:]+cell_offset*config.lCalc;
             r = sc.euclidean(particles.positions[p1,:],new_p2_position);
             V= 4*config.epsilon*((config.sigma/r)**12-(config.sigma/r)**6);
