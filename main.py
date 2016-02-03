@@ -12,6 +12,7 @@ import timeit
 from particlesanimation import animationPlot
 from rescaleVelocity import rescaleVelocity
 import matplotlib.pyplot as plt
+from calculateParameters import calculateParameters
 
 # Start Timer
 start = timeit.default_timer()
@@ -45,7 +46,8 @@ for i in range(config.iterations):
 
 # Show program end
 plotResults(particles, temp, eK, eP)
-
+Pressure=calculateParameters(particles, temp, i)
+print("P=",Pressure)
 # Stop timer
 stop = timeit.default_timer()
 print("Program ended in  =", int(stop - start), "seconds");
