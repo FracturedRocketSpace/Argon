@@ -26,9 +26,9 @@ eP = np.zeros(config.iterations);
 # Main loop
 for i in range(config.iterations):
     # Update position
-    argonMove(particles);
+    argonMove(particles, eP, i);
     # Calculate temperature
-    checkResults(particles, temp, eK, eP, i);
+    checkResults(particles, temp, eK, i);
     # Rescale 
     if (i+1) % config.rescaleIter == 0:
         rescaleVelocity(particles, temp[i])
@@ -42,3 +42,4 @@ plotResults(particles, temp, eK, eP)
 # Stop timer
 stop = timeit.default_timer()
 print("Program ended in  =", int(stop - start), "seconds");
+print("Time per iteration:", round( ((stop - start)/config.iterations)*1000 , 3 ), "ms")

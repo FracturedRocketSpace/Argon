@@ -2,20 +2,39 @@
 
 import numpy as np
 import config as c
-#import scipy.spatial.distance as sc
-
-#calculate cell offset
-def cellOffset(current, other):
-    return np.around((current-other)/c.lCalc);
+from numba import jit
 
 #calculate forces
-def calculateForces(particles):
-    particles.forces=np.zeros(shape=(c.nParticles,3), dtype="float64")
-    for p1 in range(1,c.nParticles):
-        cell_offset = cellOffset(particles.positions[p1,:], particles.positions[range(p1),:]) ;
-        new_p2_position = particles.positions[range(p1),:] + cell_offset*c.lCalc;
-        r =  np.sum( (particles.positions[p1,:]-new_p2_position)**2, axis=1) 
-        force = np.multiply(24 * c.epsilon / c.sigma * (particles.positions[p1,:]-new_p2_position), 
-                            (2*(c.sigma/r)**7-(c.sigma/r)**4)[np.newaxis].T)
-        particles.forces[p1,:] += sum(force);
-        particles.forces[range(p1),:] += -force;
+@jit( nopython=True )
+def calculateForces(positions, forces, eP, i):
+    forces=np.zeros(shape=(c.nParticles,3))
+    for p1 in range(c.nParticles):
+        for p2 in range(c.nParticles):
+            if p1 > p2:
+                X = positions[p2,0] - positions[p1,0];
+                Y = positions[p2,1] - positions[p1,1];
+                Z = positions[p2,2] - positions[p1,2];
+                
+                X -= np.rint(X/c.lCalc) * c.lCalc;
+                Y -= np.rint(Y/c.lCalc) * c.lCalc;
+                Z -= np.rint(Z/c.lCalc) * c.lCalc;
+                
+                r2 = X*X + Y*Y + Z*Z;
+                
+                r2i = 1 / r2;
+                
+                r6i = r2i*r2i*r2i
+                
+                force = 24  * r6i * (2*r6i - 1) * r2i;
+                eP[i] += 4 * r6i * (r6i - 1);
+                
+                forces[p1,0] -= force * X;
+                forces[p1,1] -= force * Y;
+                forces[p1,2] -= force * Z;
+                
+                forces[p2,0] += force * X; 
+                forces[p2,1] += force * Y; 
+                forces[p2,2] += force * Z; 
+            
+    return forces
+            
