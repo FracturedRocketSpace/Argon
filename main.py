@@ -49,6 +49,7 @@ for i in range(config.iterations):
 plotResults(particles, temp, eK, eP)
 Pressure=calculateParameters(particles, temp, i)
 #assuming the temp has stabalized
+print("P=",Pressure)
 print("Cv =", calculateCv(particles.velocities,config.tInitial))
 
 # Stop timer
