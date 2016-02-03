@@ -13,6 +13,7 @@ from particlesanimation import animationPlot
 from rescaleVelocity import rescaleVelocity
 import matplotlib.pyplot as plt
 from calculateParameters import calculateParameters
+from calculateCv import calculateCv
 
 # Start Timer
 start = timeit.default_timer()
@@ -47,7 +48,9 @@ for i in range(config.iterations):
 # Show program end
 plotResults(particles, temp, eK, eP)
 Pressure=calculateParameters(particles, temp, i)
-print("P=",Pressure)
+#assuming the temp has stabalized
+print("Cv =", calculateCv(particles.velocities,config.tInitial))
+
 # Stop timer
 stop = timeit.default_timer()
 print("Program ended in  =", int(stop - start), "seconds");
