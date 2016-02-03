@@ -11,9 +11,6 @@ from plotResults import plotResults
 import timeit
 from particlesanimation import animationPlot
 from rescaleVelocity import rescaleVelocity
-import matplotlib.pyplot as plt
-from calculateParameters import calculateParameters
-from calculateCv import calculateCv
 
 # Start Timer
 start = timeit.default_timer()
@@ -26,6 +23,8 @@ initSimulation(particles);
 temp = np.zeros(config.iterations);
 eK = np.zeros(config.iterations);
 eP = np.zeros(config.iterations);
+pressure = np.zeros(config.iterations);
+cV = np.zeros(config.iterations);
 
 if(config.animation):
     anim = animationPlot();
@@ -35,7 +34,7 @@ for i in range(config.iterations):
     # Update position
     argonMove(particles, eP, i);
     # Calculate temperature
-    checkResults(particles, temp, eK, i);
+    checkResults(particles, temp, eK, pressure, cV, i);
     # Rescale 
     if ( (i+1) % config.rescaleIter == 0 and i < config.stopRescaleIter ):
         rescaleVelocity(particles, temp[i])
@@ -46,11 +45,7 @@ for i in range(config.iterations):
         anim.updateParticlePlot(particles);
 
 # Show program end
-plotResults(particles, temp, eK, eP)
-Pressure=calculateParameters(particles, temp, i)
-#assuming the temp has stabalized
-print("P=",Pressure)
-print("Cv =", calculateCv(particles.velocities,config.tInitial))
+plotResults(particles, temp, eK, eP, pressure, cV)
 
 # Stop timer
 stop = timeit.default_timer()
