@@ -35,7 +35,7 @@ for i in range(config.iterations):
     # Calculate temperature
     checkResults(particles, temp, eK, i);
     # Rescale 
-    if (i+1) % config.rescaleIter == 0:
+    if ( (i+1) % config.rescaleIter == 0 and i < config.stopRescaleIter ):
         rescaleVelocity(particles, temp[i])
     #
     print("Iteration", i+1, "completed; Time is: ", round(i*config.dt, 3) );
@@ -49,4 +49,4 @@ plotResults(particles, temp, eK, eP)
 # Stop timer
 stop = timeit.default_timer()
 print("Program ended in  =", int(stop - start), "seconds");
-print("Time per iteration:", round( ((stop - start)/config.iterations)*1000 , 3 ), "ms")
+print(round( ((stop - start)/config.iterations)*1000 , 3 ), "ms per iteration for", config.nParticles, "particles")

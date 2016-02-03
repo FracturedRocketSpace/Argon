@@ -24,4 +24,4 @@ class animationPlot():
         self.old = self.ax.scatter(particles.positions[:,0], particles.positions[:,1], -particles.positions[:,2], zdir='z', c= 'red')
         
         plt.show();
-        plt.pause(0.001);
+        plt.pause(0.0001);

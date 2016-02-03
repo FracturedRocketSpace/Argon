@@ -2,8 +2,6 @@
 
 import config
 import numpy as np
-from numba import jit
-
 
 #@jit( nopython=True )
 def ComputeTemp(temp, eK, i):
