@@ -50,7 +50,7 @@ plotResults(particles, temp, eK, eP)
 Pressure=calculateParameters(particles, temp, i)
 #assuming the temp has stabalized
 print("P=",Pressure)
-print("Cv =", calculateCv(particles.velocities,config.tInitial))
+print("Cv =", calculateCv(particles.velocities,config.tRescale))
 
 # Stop timer
 stop = timeit.default_timer()
