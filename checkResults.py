@@ -38,24 +38,24 @@ def ComputePressure(positions, temp, pressure, i):
     pressure[i] = config.kB * temp[i] - 1/(3*config.nParticles)*virial
 
 #
+#@jit( nopython=True )
 def ComputeE2mean(velocities):
     return np.sum((0.5 * config.mass * np.sum(velocities**2, axis=1))**2)/config.nParticles;
 
 #
-def ComputeCv(velocities, temp, eK):
+#@jit( nopython=True )
+def ComputeCv(velocities, temp, eK, Cv, i):
     
     Emean = eK / config.nParticles; 
     E2mean = ComputeE2mean(velocities);
     
-    Cv = (E2mean - Emean**2)/(config.kB*temp**2);
-    
-    return Cv;
+    Cv[i] = (E2mean - Emean**2)/(config.kB*temp**2);
 
 #    
 def checkResults(particles, temp, eK, pressure, cV, i):
     ComputeeK(particles.velocities, eK, i)
     ComputeTemp(temp, eK, i)
     ComputePressure(particles.positions, temp, pressure, i)
-    ComputeCv(particles.velocities, temp[i], eK[i])
+    ComputeCv(particles.velocities, temp[i], eK[i], cV, i)
     
     
