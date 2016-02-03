@@ -9,7 +9,9 @@ from argonMove import argonMove
 from checkResults import checkResults
 from plotResults import plotResults
 import timeit
+from particlesanimation import animationPlot
 from rescaleVelocity import rescaleVelocity
+import matplotlib.pyplot as plt
 
 # Start Timer
 start = timeit.default_timer()
@@ -23,6 +25,9 @@ temp = np.zeros(config.iterations);
 eK = np.zeros(config.iterations);
 eP = np.zeros(config.iterations);
 
+if(config.animation):
+    anim = animationPlot();
+
 # Main loop
 for i in range(config.iterations):
     # Update position
@@ -35,6 +40,8 @@ for i in range(config.iterations):
     #
     print("Iteration", i+1, "completed; Time is: ", round(i*config.dt, 3) );
     
+    if(config.animation):
+        anim.updateParticlePlot(particles);
 
 # Show program end
 plotResults(particles, temp, eK, eP)

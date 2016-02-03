@@ -2,8 +2,9 @@
 
 import numpy as np
 
-nParticles = 256;
-iterations = 500; # Number of iterations
+animation = False;
+nParticles = 108;
+iterations = 200; # Number of iterations
 epsilon = 1; # Strengt of potential energy in Joule 
 sigma = 1 ; # 0 point of potential in meters
 kB = 1; # Boltzmann constant in Joule per Kelvin

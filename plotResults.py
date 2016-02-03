@@ -5,7 +5,6 @@ import matplotlib.pyplot as plt
 from mpl_toolkits.mplot3d import Axes3D
 import numpy as np
 
-
 def plotResults(particles, temp, eK, eP):
     plt.figure(1)
     plt.title('Temperature')
@@ -22,9 +21,6 @@ def plotResults(particles, temp, eK, eP):
     plt.plot( np.linspace(0, config.dt*config.iterations, config.iterations), eP+eK, label="eK+eP")
     plt.legend()
     
-    fig = plt.figure(4)
-    ax = fig.add_subplot(111, projection='3d')
-    ax.scatter(particles.positions[:,0], particles.positions[:,1], -particles.positions[:,2], zdir='z', c= 'red')
-
+    plt.show();
     
-    plt.show()
+    
