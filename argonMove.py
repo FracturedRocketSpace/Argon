@@ -3,17 +3,19 @@
 import numpy as np
 import config as c
 from calculateforces import calculateForces
+from numba import jit
 
-def keepParticlesInCell(particles):
+@jit( nopython=True )
+def keepParticlesInCell(positions):
     for p in range(c.nParticles):
-        particles.positions[p,:] = np.remainder(particles.positions[p,:], c.lCalc);
+        positions[p,:] = np.remainder(positions[p,:], c.lCalc);
 
-def argonMove(particles):
+def argonMove(particles, eP, i):
     particles.positions += particles.velocities * c.dt + 0.5 / c.mass*particles.forces * c.dt ** 2
-    keepParticlesInCell(particles);
+    keepParticlesInCell(particles.positions);
     particles.velocities += 0.5/c.mass*particles.forces* c.dt
         
-    calculateForces(particles)
+    particles.forces = calculateForces(particles.positions, particles.forces, eP, i)
     particles.velocities += 0.5/c.mass*particles.forces * c.dt   
 
 
