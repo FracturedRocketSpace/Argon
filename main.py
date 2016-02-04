@@ -32,9 +32,9 @@ if(config.animation):
 # Main loop
 for i in range(config.iterations):
     # Update position
-    argonMove(particles, eP, i);
+    virial = argonMove(particles, eP, i);
     # Calculate temperature
-    checkResults(particles, temp, eK, pressure, cV, i);
+    checkResults(particles, temp, eK, pressure, virial, cV, i);
     # Rescale 
     if ( (i+1) % config.rescaleIter == 0 and i < config.stopRescaleIter ):
         rescaleVelocity(particles, temp[i])

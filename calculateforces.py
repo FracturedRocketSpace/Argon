@@ -8,6 +8,7 @@ from numba import jit
 @jit( nopython=True )
 def calculateForces(positions, forces, eP, i):
     forces=np.zeros(shape=(c.nParticles,3))
+    virial = 0;
     for p1 in range(c.nParticles):
         for p2 in range(c.nParticles):
             if p1 > p2:
@@ -27,6 +28,7 @@ def calculateForces(positions, forces, eP, i):
                 
                 force = 24  * r6i * (2*r6i - 1) * r2i;
                 eP[i] += 4 * r6i * (r6i - 1);
+                virial +=np. sqrt(r2) * -force
                 
                 forces[p1,0] -= force * X;
                 forces[p1,1] -= force * Y;
@@ -35,6 +37,5 @@ def calculateForces(positions, forces, eP, i):
                 forces[p2,0] += force * X; 
                 forces[p2,1] += force * Y; 
                 forces[p2,2] += force * Z; 
-            
-    return forces
+    return forces, virial
             

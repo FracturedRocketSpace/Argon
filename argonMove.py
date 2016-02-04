@@ -15,10 +15,10 @@ def argonMove(particles, eP, i):
     keepParticlesInCell(particles.positions);
     particles.velocities += 0.5/c.mass*particles.forces* c.dt
         
-    particles.forces = calculateForces(particles.positions, particles.forces, eP, i)
+    particles.forces, virial = calculateForces(particles.positions, particles.forces, eP, i)
     particles.velocities += 0.5/c.mass*particles.forces * c.dt   
 
-
+    return virial
     
     
     
