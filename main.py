@@ -44,11 +44,13 @@ for i in range(config.iterations):
     
     if(config.animation and i % config.animationIter == 0):
         anim.updateParticlePlot(particles);
-       
-#Calculate the errors in pressure and cV        
-(pressureAvg, pressureError,cVAvg, cVError)=calcResult(pressure,cV)
-print("Pressure=",pressureAvg,"; Error:",pressureError)
-print("cV=",cVAvg,"; Error:", cVError)
+
+for j in range( int( len(config.oscLength) ) ):
+    print("Block length=",config.oscLength[j])       
+    #Calculate the errors in pressure and cV        
+    (pressureAvg, pressureError,cVAvg, cVError)=calcResult(pressure,cV,j)
+    print("Pressure=",pressureAvg,"; Error:",pressureError)
+    print("cV=",cVAvg,"; Error:", cVError)
 
 # Show program end
 plotResults(particles, temp, eK, eP, pressure, cV)

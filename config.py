@@ -16,7 +16,7 @@ tInitial = 1.5; # Initial temperature Kelvin
 tRescale = 1.5; # Boundary temperature for solid walls in Kelvin
 rescaleIter = 50;
 stopRescaleIter = 1000;
-oscLength=250 #Length of wiggles in iterations; used for error calculation
+oscLength=np.array([50, 100, 150, 200, 250, 300, 500]) #Length of wiggles in iterations; used for error calculation
 
 dt = 0.004; # Time step (seconds)
 lCalc =  (nParticles/4)**(1/3)*2**(2/3);
