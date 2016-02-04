@@ -3,13 +3,16 @@
 import numpy as np
 
 animation = False;
-nParticles = 100 #4 * (3**3); # = 4*n**3
+animationIter = 10;
+animationRotation = 0.25;
+
+nParticles = 100 #4 * (4**3); # = 4*n**3
 iterations = 4000; # Number of iterations
 epsilon = 1; # Strengt of potential energy in Joule 
 sigma = 1 ; # 0 point of potential in meters
 kB = 1; # Boltzmann constant in Joule per Kelvin
 mass = 1; # Mass of argon in kg
-tInitial = 1.5; # Initial temperatyre Kelvin
+tInitial = 1.5; # Initial temperature Kelvin
 tRescale = 1.5; # Boundary temperature for solid walls in Kelvin
 rescaleIter = 50;
 stopRescaleIter = 1000;

@@ -33,16 +33,16 @@ if(config.animation):
 # Main loop
 for i in range(config.iterations):
     # Update position
-    argonMove(particles, eP, i);
+    virial = argonMove(particles, eP, i);
     # Calculate temperature
-    checkResults(particles, temp, eK, pressure, cV, i);
+    checkResults(particles, temp, eK, pressure, virial, cV, i);
     # Rescale 
     if ( (i+1) % config.rescaleIter == 0 and i < config.stopRescaleIter ):
         rescaleVelocity(particles, temp[i])
     #
     print("Iteration", i+1, "completed; Time is: ", round(i*config.dt, 3) );
     
-    if(config.animation):
+    if(config.animation and i % config.animationIter == 0):
         anim.updateParticlePlot(particles);
        
 #Calculate the errors in pressure and cV        

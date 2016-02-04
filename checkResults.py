@@ -15,26 +15,7 @@ def ComputeeK(velocities, eK, i):
 
 #
 @jit( nopython=True )
-def ComputePressure(positions, temp, pressure, i):
-    virial=0
-    for p1 in range(config.nParticles):
-        for p2 in range(config.nParticles):
-            if p1 > p2:
-                X = positions[p2,0] - positions[p1,0];
-                Y = positions[p2,1] - positions[p1,1];
-                Z = positions[p2,2] - positions[p1,2];
-                
-                X -= np.rint(X/config.lCalc) * config.lCalc;
-                Y -= np.rint(Y/config.lCalc) * config.lCalc;
-                Z -= np.rint(Z/config.lCalc) * config.lCalc;
-                
-                r2 = X*X + Y*Y + Z*Z;
-                r2i = 1 / r2;
-                r6i = r2i*r2i*r2i                
-                force = 24  * r6i * (2*r6i - 1) * r2i;
-                
-                virial +=np. sqrt(r2) * -force
-    #
+def ComputePressure(virial, temp, pressure, i):
     pressure[i] = config.kB * temp[i] - 1/(3*config.nParticles)*virial
 
 #
@@ -52,10 +33,10 @@ def ComputeCv(velocities, temp, eK, Cv, i):
     Cv[i] = (E2mean - Emean**2)/(config.kB*temp**2);
 
 #    
-def checkResults(particles, temp, eK, pressure, cV, i):
+def checkResults(particles, temp, eK, pressure, virial, cV, i):
     ComputeeK(particles.velocities, eK, i)
     ComputeTemp(temp, eK, i)
-    ComputePressure(particles.positions, temp, pressure, i)
+    ComputePressure(virial, temp, pressure, i)
     ComputeCv(particles.velocities, temp[i], eK[i], cV, i)
     
     
