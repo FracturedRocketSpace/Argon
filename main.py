@@ -41,7 +41,7 @@ for i in range(config.iterations):
     #
     print("Iteration", i+1, "completed; Time is: ", round(i*config.dt, 3) );
     
-    if(config.animation):
+    if(config.animation and i % config.animationIter == 0):
         anim.updateParticlePlot(particles);
 
 # Show program end

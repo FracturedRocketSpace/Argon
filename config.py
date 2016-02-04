@@ -3,6 +3,9 @@
 import numpy as np
 
 animation = False;
+animationIter = 10;
+animationRotation = 0.25;
+
 nParticles = 4 * (5**3); # = 4*n**3
 iterations = 500; # Number of iterations
 epsilon = 1; # Strengt of potential energy in Joule 
