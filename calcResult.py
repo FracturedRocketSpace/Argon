@@ -7,7 +7,7 @@ Created on Thu Feb  4 09:54:44 2016
 import config
 import numpy as np
 
-def calcResult(pressure, cV):
+def calcResult(pressure, cV, j):
     # Take pressure in stable region
     pressureStable=pressure[config.stopRescaleIter::]
     cVStable=cV[config.stopRescaleIter::]
@@ -17,13 +17,13 @@ def calcResult(pressure, cV):
     cVAvg=np.mean(cVStable)
 
     # Ititiate averages 
-    AvgPressure=np.zeros(len(pressureStable)/config.oscLength-1)
-    AvgCV=np.zeros(len(cVStable)/config.oscLength-1)
+    AvgPressure=np.zeros(len(pressureStable)/config.oscLength[j]-1)
+    AvgCV=np.zeros(len(cVStable)/config.oscLength[j]-1)
 
     # Loop over all sections, calculate avg of parameters in sections
-    for i in range( int( (config.iterations-config.stopRescaleIter) / config.oscLength -1 ) ):
-        AvgPressure[i]=np.mean(pressureStable[i*config.oscLength:i*config.oscLength+config.oscLength-1])
-        AvgCV[i]=np.mean(cVStable[i*config.oscLength:i*config.oscLength+config.oscLength-1])
+    for i in range( int( (config.iterations-config.stopRescaleIter) / config.oscLength[j] -1 ) ):
+        AvgPressure[i]=np.mean(pressureStable[i*config.oscLength[j]:i*config.oscLength[j]+config.oscLength[j]-1])
+        AvgCV[i]=np.mean(cVStable[i*config.oscLength[j]:i*config.oscLength[j]+config.oscLength[j]-1])
 
     # Compute error
     s2p=np.var(AvgPressure)

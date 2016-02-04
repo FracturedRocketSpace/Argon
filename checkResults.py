@@ -17,7 +17,7 @@ def ComputeeK(velocities, eK, i):
 # Check if 6 or 3!
 #@jit( nopython=True )
 def ComputePressure(virial, temp, pressure, i):
-    pressure[i] = 1 - virial /(3*config.nParticles *config.kB * temp[i]) 
+    pressure[i] = 1 - virial /(6*config.nParticles *config.kB * temp[i]) 
 
 #
 #@jit( nopython=True )
