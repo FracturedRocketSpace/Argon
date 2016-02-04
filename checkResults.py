@@ -13,10 +13,11 @@ def ComputeTemp(temp, eK, i):
 def ComputeeK(velocities, eK, i):
     eK[i] = 0.5 * config.mass * np.sum(np.sum(velocities**2));
 
-#
+# Calculate beta*P/rho instead of just pressure
+# Check if 6 or 3!
 #@jit( nopython=True )
 def ComputePressure(virial, temp, pressure, i):
-    pressure[i] = config.kB * temp[i] - (virial * config.nParticles/(config.lCalc**3) )/(3*config.nParticles) 
+    pressure[i] = 1 - virial /(3*config.nParticles *config.kB * temp[i]) 
 
 #
 #@jit( nopython=True )

@@ -47,7 +47,7 @@ for i in range(config.iterations):
        
 #Calculate the errors in pressure and cV        
 (pressureAvg, pressureError,cVAvg, cVError)=calcResult(pressure,cV)
-print("Pressure=",pressureAvg,"; Error:",pressureError)
+print("Compressibility factor=",pressureAvg,"; Error:",pressureError)
 print("cV=",cVAvg,"; Error:", cVError)
 
 # Show program end
