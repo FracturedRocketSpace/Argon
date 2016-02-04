@@ -11,6 +11,7 @@ from plotResults import plotResults
 import timeit
 from particlesanimation import animationPlot
 from rescaleVelocity import rescaleVelocity
+from calcResult import calcResult
 
 # Start Timer
 start = timeit.default_timer()
@@ -43,6 +44,11 @@ for i in range(config.iterations):
     
     if(config.animation):
         anim.updateParticlePlot(particles);
+       
+#Calculate the errors in pressure and cV        
+(pressureAvg, pressureError,cVAvg, cVError)=calcResult(pressure,cV)
+print("Pressure=",pressureAvg,"; Error:",pressureError)
+print("cV=",cVAvg,"; Error:", cVError)
 
 # Show program end
 plotResults(particles, temp, eK, eP, pressure, cV)
