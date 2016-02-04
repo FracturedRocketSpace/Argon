@@ -14,9 +14,9 @@ def ComputeeK(velocities, eK, i):
     eK[i] = 0.5 * config.mass * np.sum(np.sum(velocities**2));
 
 #
-@jit( nopython=True )
+#@jit( nopython=True )
 def ComputePressure(virial, temp, pressure, i):
-    pressure[i] = config.kB * temp[i] - 1/(3*config.nParticles)*virial
+    pressure[i] = config.kB * temp[i] - (virial * config.nParticles/(config.lCalc**3) )/(3*config.nParticles) 
 
 #
 #@jit( nopython=True )

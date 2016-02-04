@@ -14,8 +14,10 @@ def initPositions(particles):
     while 4*(Nc ** 3) < config.nParticles:
         Nc += 1;
     Lcell=config.lCalc/Nc;
-    print('Lcell is: ', Lcell);
     
+    # Print time!
+    print('Lcell is', Lcell);
+    print('Density is', config.nParticles/(config.lCalc**3) );
     
     # Positions of particles in FCC unit cell
     xCell=np.array([0, 0.5, 0.5, 0])
