@@ -66,6 +66,13 @@ def plotResults(particles, temp, eK, eP, pressure, Cv):
     plt.ylabel('Cv')
     plt.plot( np.linspace(0, config.dt*config.iterations, config.iterations), Cv)
     
+    plt.subplot(236)
+    plt.title('Correlation histogram')
+    plt.xlabel('Distance')
+    plt.ylabel('g(r)')
+    plt.bar(np.linspace((config.histRange/config.histSteps), config.histRange, config.histSteps ),g,config.histRange/config.histSteps)
+    
     plt.show();
+    
     
     
