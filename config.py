@@ -4,7 +4,7 @@ import numpy as np
 
 animation = False;
 animationIter = 10;
-animationRotation = 0.25;
+animationRotation = 0.50;
 
 nParticles = 4 * (5**3); # = 4*n**3
 iterations = 2000; # Number of iterations

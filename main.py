@@ -26,6 +26,8 @@ eK = np.zeros(config.iterations);
 eP = np.zeros(config.iterations);
 pressure = np.zeros(config.iterations);
 cV = np.zeros(config.iterations);
+displacement = np.zeros(config.iterations);
+zeroPositions = np.zeros((config.nParticles,3));
 
 if(config.animation):
     anim = animationPlot();
@@ -35,25 +37,30 @@ for i in range(config.iterations):
     # Update position
     virial = argonMove(particles, eP, i);
     # Calculate temperature
-    checkResults(particles, temp, eK, pressure, virial, cV, i);
+    checkResults(particles, temp, eK, pressure, virial, cV, displacement, zeroPositions, i);
     # Rescale 
     if ( (i+1) % config.rescaleIter == 0 and i < config.stopRescaleIter ):
         rescaleVelocity(particles, temp[i])
     #
     print("Iteration", i+1, "completed; Time is: ", round(i*config.dt, 3) );
     
+    # Set 0 displacement positions after rescale has ended
+    if(i == config.stopRescaleIter):
+        zeroPositions = np.copy(particles.positions);
+    
+    # Update animation
     if(config.animation and i % config.animationIter == 0):
         anim.updateParticlePlot(particles);
 
+# Calculate errors
 for j in range( int( len(config.oscLength) ) ):
-    print("Block length=",config.oscLength[j])       
-    #Calculate the errors in pressure and cV        
+    print("Block length=",config.oscLength[j])              
     (pressureAvg, pressureError,cVAvg, cVError)=calcResult(pressure,cV,j)
     print("Compressibility factor=",pressureAvg,"; Error:",pressureError)
     print("cV=",cVAvg,"; Error:", cVError)
 
 # Show program end
-plotResults(particles, temp, eK, eP, pressure, cV)
+plotResults(particles, temp, eK, eP, pressure, cV, displacement)
 
 # Stop timer
 stop = timeit.default_timer()

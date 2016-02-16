@@ -8,6 +8,9 @@ import config
 import numpy as np
 
 def calcResult(pressure, cV, j):
+    if(len(pressure)<config.stopRescaleIter+config.oscLength[j]):
+        return 0,0,0,0;
+        
     # Take pressure in stable region
     pressureStable=pressure[config.stopRescaleIter::]
     cVStable=cV[config.stopRescaleIter::]
@@ -30,7 +33,5 @@ def calcResult(pressure, cV, j):
     pressureError=np.sqrt( s2p/len(AvgPressure) )    
     s2cv=np.var(AvgCV)
     cVError=np.sqrt( s2cv/len(AvgCV) )
-    
-    
     
     return pressureAvg, pressureError, cVAvg, cVError

@@ -27,15 +27,17 @@ def corrHist(positions):
                         break;    
                     
     g = g * 2 * (config.lCalc**3) / (config.nParticles*(config.nParticles-1));        
-    return g, np.linspace( (config.histRange/config.histSteps), config.histRange, config.histSteps )
+    return g
             
-def plotResults(particles, temp, eK, eP, pressure, Cv):
+def plotResults(particles, temp, eK, eP, pressure, Cv, displacement):
+    timeAxis = np.linspace(0, config.dt*config.iterations, config.iterations);
+    
     plt.figure(1)
     plt.subplot(231)
     plt.title('Temperature')
     plt.xlabel('Time (s)')
     plt.ylabel('Temperature')
-    plt.plot( np.linspace(0, config.dt*config.iterations, config.iterations), temp)
+    plt.plot(timeAxis , temp)
     
     plt.subplot(232)
     plt.title('Energy')
@@ -47,30 +49,30 @@ def plotResults(particles, temp, eK, eP, pressure, Cv):
     plt.legend()
     
     plt.subplot(233)
-    plt.title('Correlation')
+    plt.title('Correlation histogram')
     plt.xlabel('Distance')
     plt.ylabel('g(r)')
-    g, bins = corrHist(particles.positions)
-    #plt.hist(g, config.histSteps, normed=1, facecolor='green', alpha=0.75)
-    plt.plot(bins, g, 'r--', linewidth=1)
+    g = corrHist(particles.positions)
+    plt.bar(np.linspace((config.histRange/config.histSteps), config.histRange, config.histSteps ),g,config.histRange/config.histSteps)
     
     plt.subplot(234)
     plt.title('Pressure')
     plt.xlabel('Time (s)')
     plt.ylabel('Pressure')
-    plt.plot( np.linspace(0, config.dt*config.iterations, config.iterations), pressure)
+    plt.plot(timeAxis, pressure)
     
     plt.subplot(235)
     plt.title('Cv')
     plt.xlabel('Time (s)')
     plt.ylabel('Cv')
-    plt.plot( np.linspace(0, config.dt*config.iterations, config.iterations), Cv)
+    plt.plot(timeAxis, Cv)
     
     plt.subplot(236)
-    plt.title('Correlation histogram')
-    plt.xlabel('Distance')
-    plt.ylabel('g(r)')
-    plt.bar(np.linspace((config.histRange/config.histSteps), config.histRange, config.histSteps ),g,config.histRange/config.histSteps)
+    plt.title('Displacement')
+    plt.xlabel('Time (s)')
+    plt.ylabel('Displacement')
+    plt.plot(timeAxis, displacement)
+
     
     plt.show();
     

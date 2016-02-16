@@ -2,7 +2,6 @@
 
 import config
 import numpy as np
-from numba import jit
 
 #@jit( nopython=True )
 def ComputeTemp(temp, eK, i):
@@ -32,12 +31,17 @@ def ComputeCv(velocities, temp, eK, Cv, i):
     E2mean = ComputeE2mean(velocities);
     
     Cv[i] = (E2mean - Emean**2)/(config.kB*temp**2);
+    
+def ComputeDisplacement(positions, zeroPositions, displacement, i):
+    displacement[i] = 1/config.nParticles * np.sum( np.sum( (positions - zeroPositions)**2, axis=1 ) )    
 
 #    
-def checkResults(particles, temp, eK, pressure, virial, cV, i):
+def checkResults(particles, temp, eK, pressure, virial, cV, displacement, zeroPositions, i):
     ComputeeK(particles.velocities, eK, i)
     ComputeTemp(temp, eK, i)
     ComputePressure(virial, temp, pressure, i)
     ComputeCv(particles.velocities, temp[i], eK[i], cV, i)
+    if(i > config.stopRescaleIter):
+        ComputeDisplacement(particles.positions, zeroPositions, displacement, i)
     
     
