@@ -2,3 +2,4 @@
 .spyderworkspace
 .spyderproject
 __pycache__
+*.mat
