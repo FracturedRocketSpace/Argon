@@ -21,16 +21,15 @@ def ComputePressure(virial, temp, pressure, i):
 #
 #@jit( nopython=True )
 def ComputeE2mean(velocities):
-    return np.sum((0.5 * config.mass * np.sum(velocities**2, axis=1))**2)/config.nParticles;
+    return np.sum((0.5 * config.mass * np.sum(velocities**2, axis=1))**2);
 
 #
 #@jit( nopython=True )
 def ComputeCv(velocities, eK, Cv, i):
+    e2K = ComputeE2mean(velocities);
     
-    Emean = eK / config.nParticles; 
-    E2mean = ComputeE2mean(velocities);
+    Cv[i] = 1/( 2/(3*config.nParticles) - (e2K - eK**2)/(eK**2) );
     
-    Cv[i] = 1/(2/(3*config.nParticles)-(E2mean - Emean**2)/Emean**2);
     
 def ComputeDisplacement(positions, zeroPositions, displacement, i):
     dR = (positions - zeroPositions);
