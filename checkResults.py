@@ -25,12 +25,12 @@ def ComputeE2mean(velocities):
 
 #
 #@jit( nopython=True )
-def ComputeCv(velocities, temp, eK, Cv, i):
+def ComputeCv(velocities, eK, Cv, i):
     
     Emean = eK / config.nParticles; 
     E2mean = ComputeE2mean(velocities);
     
-    Cv[i] = (E2mean - Emean**2)/(config.kB*temp**2);
+    Cv[i] = 1/(2/(3*config.nParticles)-(E2mean - Emean**2)/Emean**2);
     
 def ComputeDisplacement(positions, zeroPositions, displacement, i):
     dR = (positions - zeroPositions);
@@ -46,7 +46,7 @@ def checkResults(particles, temp, eK, pressure, virial, cV, displacement, zeroPo
     ComputeeK(particles.velocities, eK, i)
     ComputeTemp(temp, eK, i)
     ComputePressure(virial, temp, pressure, i)
-    ComputeCv(particles.velocities, temp[i], eK[i], cV, i)
+    ComputeCv(particles.velocities, eK[i], cV, i)
     if(i > config.stopRescaleIter):
         ComputeDisplacement(particles.positions, zeroPositions, displacement, i)
     
