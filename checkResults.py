@@ -33,7 +33,13 @@ def ComputeCv(velocities, temp, eK, Cv, i):
     Cv[i] = (E2mean - Emean**2)/(config.kB*temp**2);
     
 def ComputeDisplacement(positions, zeroPositions, displacement, i):
-    displacement[i] = 1/config.nParticles * np.sum( np.sum( (positions - zeroPositions)**2, axis=1 ) )    
+    dR = (positions - zeroPositions);
+    
+    dR[:,0] -= np.around(dR[:,0]/config.lCalc)
+    dR[:,1] -= np.around(dR[:,1]/config.lCalc)
+    dR[:,2] -= np.around(dR[:,2]/config.lCalc)
+    
+    displacement[i] = 1/config.nParticles * np.sum( np.sum( (dR)**2, axis=1 ) )    
 
 #    
 def checkResults(particles, temp, eK, pressure, virial, cV, displacement, zeroPositions, i):
