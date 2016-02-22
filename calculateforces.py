@@ -28,7 +28,8 @@ def calculateForces(positions, forces, eP, i):
                 
                 force = 24  * r6i * (2*r6i - 1) * r2i;
                 eP[i] += 4 * r6i * (r6i - 1);
-                virial +=np. sqrt(r2) * -force
+                
+                virial -= r2 * force;
                 
                 forces[p1,0] -= force * X;
                 forces[p1,1] -= force * Y;
