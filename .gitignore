@@ -3,3 +3,4 @@
 .spyderproject
 __pycache__
 *.mat
+*.png
