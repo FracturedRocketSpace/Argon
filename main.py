@@ -55,7 +55,7 @@ for i in range(config.iterations):
 # Calculate errors
 for j in range( int( len(config.oscLength) ) ):
     print("Block length=",config.oscLength[j])              
-    (pressureAvg, pressureError,cVAvg, cVError)=calcResult(pressure,cV,j)
+    (pressureAvg, pressureError,cVAvg, cVError)=calcResult(pressure,eK,j)
     print("Compressibility factor=",pressureAvg,"; Error:",pressureError)
     print("cV=",cVAvg,"; Error:", cVError)
 
