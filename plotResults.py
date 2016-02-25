@@ -32,7 +32,22 @@ def corrHist(positions):
     return g
     
 def dumpData(particles, temp, eK, eP, pressure, Cv, displacement, g, timeAxis, histAxis):
-    scipy.io.savemat(datetime.now().strftime('%Y-%m-%d %H%M%S'), dict(temp=temp, eK=eK, eP=eP, cV=Cv, pressure=pressure, displacement=displacement, g=g, timeAxis=timeAxis, histAxis=np.linspace((config.histRange/config.histSteps), config.histRange, config.histSteps ) ) )
+    scipy.io.savemat(datetime.now().strftime('%Y-%m-%d %H%M%S'), 
+        dict(temp=temp, 
+            eK=eK, 
+            eP=eP, 
+            cV=Cv, 
+            pressure=pressure, 
+            displacement=displacement, 
+            g=g, 
+            timeAxis=timeAxis, 
+            histAxis=np.linspace((config.histRange/config.histSteps), config.histRange, config.histSteps ), 
+            nParticles=config.nParticles,
+            temperature=config.tRescale,
+            density=config.rho,
+            lCalc=config.lCalc
+        ) 
+    )
             
 def plotResults(particles, temp, eK, eP, pressure, Cv, displacement):
     timeAxis = np.linspace(0, config.dt*config.iterations, config.iterations);
