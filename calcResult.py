@@ -18,6 +18,7 @@ def calcResult(pressure, eK, temp, eP, j):
     tempStable=temp[config.stopRescaleIter::]
     ePStable=eP[config.stopRescaleIter::]
     ePStableParticle=ePStable/config.nParticles
+    eKStable=eK[config.stopRescaleIter::]
     
     # Compute Average values
     pressureAvg=np.mean(pressureStable)
@@ -27,7 +28,7 @@ def calcResult(pressure, eK, temp, eP, j):
 
     # Ititiate averages 
     AvgPressure=np.zeros(len(pressureStable)/config.oscLength[j]-1)
-    cvAvgSections=np.zeros(len(eK)/config.oscLength[j]-1)
+    cvAvgSections=np.zeros(len(eKStable)/config.oscLength[j]-1)
     #AvgCV=np.zeros(len(cVStable)/config.oscLength[j]-1)
     AvgTemp=np.zeros(len(tempStable)/config.oscLength[j]-1)
     AvgePParticle=np.zeros(len(ePStableParticle)/config.oscLength[j]-1)
