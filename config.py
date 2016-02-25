@@ -18,6 +18,8 @@ rescaleIter = 10;
 stopRescaleIter = 1000;
 oscLength=np.array([50, 100, 150, 200, 250, 300, 500]) #Length of wiggles in iterations; used for error calculation
 
+cVLength=250; # Running average length for cV
+
 rho=0.85; # Choose density in reduced units
 
 dt = 0.004; # Time step (seconds)

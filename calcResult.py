@@ -1,9 +1,4 @@
-# -*- coding: utf-8 -*-
-"""
-Created on Thu Feb  4 09:54:44 2016
 
-@author: Mathijs
-"""
 import config
 import numpy as np
 
@@ -40,7 +35,7 @@ def calcResult(pressure, eK, temp, eP, j):
     # Loop over all sections, calculate avg of parameters in sections
     for i in range( int( (config.iterations-config.stopRescaleIter) / config.oscLength[j] -1 ) ):
         AvgPressure[i]=np.mean(pressureStable[i*config.oscLength[j]:i*config.oscLength[j]+config.oscLength[j]-1])
-        cvAvgSections[i]=ComputeCv(eK[i*config.oscLength[j]:i*config.oscLength[j]+config.oscLength[j]-1])
+        cvAvgSections[i]=ComputeCv(eKStable[i*config.oscLength[j]:i*config.oscLength[j]+config.oscLength[j]-1])
         AvgTemp[i]=np.mean(tempStable[i*config.oscLength[j]:i*config.oscLength[j]+config.oscLength[j]-1])
         AvgePParticle[i]=np.mean(ePStableParticle[i*config.oscLength[j]:i*config.oscLength[j]+config.oscLength[j]-1])
 

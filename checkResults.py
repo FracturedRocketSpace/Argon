@@ -27,8 +27,8 @@ def ComputeE2mean(velocities):
 #
 #@jit( nopython=True )
 def ComputeCv(velocities, eK, Cv, i):
-    eK2 = eK[i-20:i];
-    eKmean = np.sum(eK2)/(20);
+    eK2 = eK[i-config.cVLength:i];
+    eKmean = np.mean(eK2);
     var = np.var(eK2);
     
     #Cv[i] = 1/( 2/(3*config.nParticles) - (e2K - eK**2)/(eK**2) );
