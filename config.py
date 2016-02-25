@@ -6,7 +6,7 @@ animation = False;
 animationIter = 10;
 animationRotation = 0.50;
 
-nParticles = 4 * (6**3); # = 4*n**3
+nParticles = 4 * (4**3); # = 4*n**3
 iterations = 5000; # Number of iterations
 epsilon = 1; # Strengt of potential energy in Joule 
 sigma = 1 ; # 0 point of potential in meters

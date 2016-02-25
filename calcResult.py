@@ -12,31 +12,46 @@ def ComputeCv(eK):
     eKvar = np.var(eK);
     
     return 3 * (eKmean**2) / (2*(eKmean**2) - 3*config.nParticles*(eKvar)  )
-
-def calcResult(pressure, eK, j):
-    if(len(pressure)<config.stopRescaleIter+config.oscLength[j]):
-        return 0,0,0,0;
+    
+def errorBootstrap(data, numSamples):
+    #initialize samples to zero
+    samples=np.zeros(numSamples)
+    pointsPerSample = np.floor(len(data)/2)
+    for i in range(numSamples):
+        samples[i] = np.mean(np.random.choice(data,pointsPerSample,False));
         
+    s2 = np.var(samples);
+    return np.sqrt(s2/len(data))
+
+def calcResult(pressure, eK, temp, eP, j):
     # Take pressure in stable region
-    pressureStable=pressure[config.stopRescaleIter::]
+    pressureStable = pressure[config.stopRescaleIter::]
+    eKStable = eK[config.stopRescaleIter::]
+    ePStable = eP[config.stopRescaleIter::]
+    tempStable = temp[config.stopRescaleIter::]
     
     # Compute Average values
     pressureAvg=np.mean(pressureStable)
-    cvAvg=ComputeCv(eK[config.stopRescaleIter::])
-
-    # Ititiate averages for the sections
-    pressureAvgSections=np.zeros(len(pressureStable)/config.oscLength[j]-1)
-    cvAvgSections=np.zeros(len(eK)/config.oscLength[j]-1)
-
+    cVAvg=ComputeCv(eKStable)
+    ePAvg=np.mean(ePStable)
+    tempAvg=np.mean(tempStable)
+    
+    # Ititiate averages 
+    avgPressureSections=np.zeros(len(pressureStable)/config.oscLength[j]-1)
+    avgCvSections=np.zeros(len(eKStable)/config.oscLength[j]-1)
+    avgePSections=np.zeros(len(eKStable)/config.oscLength[j]-1)
+    avgTempSections=np.zeros(len(tempStable)/config.oscLength[j]-1)
+    
     # Loop over all sections, calculate avg of parameters in sections
     for i in range( int( (config.iterations-config.stopRescaleIter) / config.oscLength[j] -1 ) ):
-        pressureAvgSections[i]=np.mean(pressureStable[i*config.oscLength[j]:i*config.oscLength[j]+config.oscLength[j]-1])
-        cvAvgSections[i]=ComputeCv(eK[i*config.oscLength[j]:i*config.oscLength[j]+config.oscLength[j]-1])
-
-    # Compute error
-    s2p=np.var(pressureAvgSections)
-    pressureError=np.sqrt( s2p/len(pressureAvgSections) )    
-    s2cv=np.var(cvAvgSections)
-    cvError=np.sqrt( s2cv/len(cvAvgSections) )
+        avgPressureSections[i]=np.mean(pressureStable[i*config.oscLength[j]:i*config.oscLength[j]+config.oscLength[j]-1])
+        avgCvSections[i]=ComputeCv(eKStable[i*config.oscLength[j]:i*config.oscLength[j]+config.oscLength[j]-1])
+        avgePSections[i]=np.mean(ePStable[i*config.oscLength[j]:i*config.oscLength[j]+config.oscLength[j]-1])
+        avgTempSections[i]=np.mean(tempStable[i*config.oscLength[j]:i*config.oscLength[j]+config.oscLength[j]-1])
     
-    return pressureAvg, pressureError, cvAvg, cvError
+    pressureError = errorBootstrap(avgPressureSections,10);
+    cVError = errorBootstrap(avgCvSections,10);
+    ePError = errorBootstrap(avgePSections,10);
+    tempError = errorBootstrap(avgTempSections,10);
+        
+    return pressureAvg, pressureError, cVAvg, cVError, tempAvg, tempError, ePAvg, ePError

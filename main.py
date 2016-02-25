@@ -55,9 +55,11 @@ for i in range(config.iterations):
 # Calculate errors
 for j in range( int( len(config.oscLength) ) ):
     print("Block length=",config.oscLength[j])              
-    (pressureAvg, pressureError,cVAvg, cVError)=calcResult(pressure,eK,j)
+    (pressureAvg, pressureError,cVAvg, cVError, tempAvg, tempError, ePAvg, ePError)=calcResult(pressure,eK,temp,eP,j)
     print("Compressibility factor=",pressureAvg,"; Error:",pressureError)
     print("cV=",cVAvg,"; Error:", cVError)
+    print("temp=",tempAvg,"; Error:", tempError)
+    print("cP=",ePAvg,"; Error:", ePError)
     
 # Convert Ek and Ep to per particle for use in plotting
 eK /= config.nParticles;
