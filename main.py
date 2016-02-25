@@ -58,6 +58,10 @@ for j in range( int( len(config.oscLength) ) ):
     (pressureAvg, pressureError,cVAvg, cVError)=calcResult(pressure,eK,j)
     print("Compressibility factor=",pressureAvg,"; Error:",pressureError)
     print("cV=",cVAvg,"; Error:", cVError)
+    
+# Convert Ek and Ep to per particle for use in plotting
+eK /= config.nParticles;
+eP /= config.nParticles;  
 
 # Show program end
 plotResults(particles, temp, eK, eP, pressure, cV, displacement)
