@@ -1,30 +1,33 @@
 # Config file 
 
-import numpy as np
+# Animiation
+animation = True;                                      # Set animation on or off. Setting the animation on increases simulation time
+animationIter = 10;                                     # Iterations between updating animation
+animationRotation = 0.50;                               # Animation rotation rate
 
-animation = False;
-animationIter = 10;
-animationRotation = 0.50;
+# Simulation
+nParticles = 4 * (6**3);                                # Number of particles. To fill a complete grid it should be set to 4 ** (n**3)
+iterations = 6000;                                      # Number of iterations
+tInitial = 2;                                           # Initial temperature
+tRescale = tInitial;                                    # Rescale temperature
+rescaleIter = 20;                                       # Iterations between rescale
+stopRescaleIter = 1000;                                 # Iteration after which the rescaling stops
+rho=1.2;                                                # Density in reduced units
+dt = 0.004;                                             # Time step per iteration
 
-nParticles = 4 * (3**3); # = 4*n**3
-iterations = 5000; # Number of iterations
-epsilon = 1; # Strengt of potential energy in Joule 
+# Simulation parameters to be removed from code
+epsilon = 1; #  Strengt of potential energy in Joule 
 sigma = 1 ; # 0 point of potential in meters
 kB = 1; # Boltzmann constant in Joule per Kelvin
 mass = 1; # Mass of argon in kg
-tInitial = 0.8; # Initial temperature Kelvin
-tRescale = tInitial; # Boundary temperature for solid walls in Kelvin
-rescaleIter = 10;
-stopRescaleIter = 1000;
-oscLength=np.array([50, 100, 150, 200, 250, 300, 500]) #Length of wiggles in iterations; used for error calculation
+# Simulation parameters to be removed from code
 
-cVLength=250; # Running average length for cV
+# Parameters derived from other settings
+lCalc =  (1/rho)**(1/3)*(nParticles/4)**(1/3)*2**(2/3); # Calculation domain length
+a=(kB*tInitial/mass)**(1/2);                            # Used for Maxwell distribution
 
-rho=0.85; # Choose density in reduced units
-
-dt = 0.004; # Time step (seconds)
-lCalc =  (1/rho)**(1/3)*(nParticles/4)**(1/3)*2**(2/3);
-a=np.sqrt(kB*tInitial/mass); # Used for Maxwell distribution
-
-histRange = np.sqrt(2)*(lCalc)*3/5
-histSteps = 150;
+# Post processing and plots
+oscLength=[50, 100, 150, 200, 250, 300, 500];           # Block lengths for error calculation
+cVLength=250;                                           # Running average length for cV plot
+histRange = (2)**(1/2) * (lCalc) * 3/5;                 # Maximum distance over which the pair correlation is determined          
+histSteps = 150;                                        # Number of intervals for pair correlation
