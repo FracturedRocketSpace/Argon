@@ -53,3 +53,14 @@ def initSimulation(particles):
     initPositions(particles.positions);
     initVelocities(particles.velocities);
     particles.forces, virial = calculateForces(particles.positions, particles.forces, np.array([0,0]), 0);
+    
+    # Init check variables
+    temp = np.zeros(config.iterations);
+    eK = np.zeros(config.iterations);
+    eP = np.zeros(config.iterations);
+    compr = np.zeros(config.iterations);
+    cV = np.zeros(config.iterations);
+    displacement = np.zeros(config.iterations);
+    zeroPositions = np.zeros((config.nParticles,3));
+    
+    return temp, eK, eP, compr, cV, displacement, zeroPositions

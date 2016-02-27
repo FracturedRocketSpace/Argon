@@ -2,7 +2,6 @@
 
 # Import classes and functions
 import config
-import numpy as np
 import timeit
 from particles import Particles
 from initSimulation import initSimulation
@@ -16,16 +15,7 @@ start = timeit.default_timer()
 
 # Initialize position + velocity
 particles = Particles(config.nParticles);
-initSimulation(particles);
-
-# Init check variables
-temp = np.zeros(config.iterations);
-eK = np.zeros(config.iterations);
-eP = np.zeros(config.iterations);
-compr = np.zeros(config.iterations);
-cV = np.zeros(config.iterations);
-displacement = np.zeros(config.iterations);
-zeroPositions = np.zeros((config.nParticles,3));
+(temp, eK, eP, compr, cV, displacement, zeroPositions) = initSimulation(particles);
 
 if(config.animation):
     anim = animationPlot();
@@ -45,7 +35,7 @@ for i in range(config.iterations):
     # Inform user of progress
     print("Iteration", i+1, "completed; Time is: ", round(i*config.dt, 3) );
 
-postProcess(particles, temp, eK, eP, pressure, cV, displacement)
+postProcess(particles, temp, eK, eP, compr, cV, displacement)
 
 # Stop timer
 stop = timeit.default_timer()
