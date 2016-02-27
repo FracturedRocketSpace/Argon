@@ -9,7 +9,8 @@ def rescaleVelocity(velocities, temp):
 
 # Place particles back on the other side of the cell if they left it
 def keepParticlesInCell(positions):
-        positions = np.remainder(positions, config.lCalc);
+    for p in range(config.nParticles):
+        positions[p,:] = np.remainder(positions[p,:], config.lCalc);
         
 # Calculate the forces. Jitted to make is super fast
 # Code has been based on: http://combichem.blogspot.nl/2013/04/fun-with-numba-numpy-and-f2py.html
@@ -55,11 +56,11 @@ def argonMove(particles, eP, temp, i):
         rescaleVelocity(particles.velocities, temp[i-1])
         
     # Velocity Verlet Algorithm
-    particles.positions += particles.velocities * config.dt + 0.5 / particles.forces * config.dt ** 2
+    particles.positions += particles.velocities * config.dt + 0.5 * particles.forces * config.dt ** 2
     keepParticlesInCell(particles.positions);
-    particles.velocities += 0.5/particles.forces* config.dt
+    particles.velocities += 0.5 * particles.forces * config.dt
         
     particles.forces, virial = calculateForces(particles.positions, particles.forces, eP, i)
-    particles.velocities += 0.5/particles.forces * config.dt   
+    particles.velocities += 0.5 * particles.forces * config.dt   
 
     return virial

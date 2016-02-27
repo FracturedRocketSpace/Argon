@@ -26,7 +26,7 @@ for i in range(config.iterations):
     virial = argonMove(particles, eP, temp, i);
     
     # Calculate physical quantities
-    calculateQuantities(particles, temp, eK, compr, virial, cV, displacement, zeroPositions, i);
+    zeroPositions = calculateQuantities(particles, temp, eK, compr, virial, cV, displacement, zeroPositions, i);
     
     # Update animation
     if(config.animation and i % config.animationIter == 0):

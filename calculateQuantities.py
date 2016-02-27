@@ -39,4 +39,5 @@ def calculateQuantities(particles, temp, eK, compr, virial, cV, displacement, ze
         
     # Set 0 displacement positions after rescale has ended
     if(i == config.stopRescaleIter):
-        zeroPositions = np.copy(particles.positions);    
+        zeroPositions = np.copy(particles.positions); 
+    return zeroPositions
