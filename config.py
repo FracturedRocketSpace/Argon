@@ -1,7 +1,7 @@
 # Config file 
 
 # Animiation
-animation = True;                                      # Set animation on or off. Setting the animation on increases simulation time
+animation = False;                                      # Set animation on or off. Setting the animation on increases simulation time
 animationIter = 10;                                     # Iterations between updating animation
 animationRotation = 0.50;                               # Animation rotation rate
 
@@ -15,16 +15,9 @@ stopRescaleIter = 1000;                                 # Iteration after which 
 rho=1.2;                                                # Density in reduced units
 dt = 0.004;                                             # Time step per iteration
 
-# Simulation parameters to be removed from code
-epsilon = 1; #  Strengt of potential energy in Joule 
-sigma = 1 ; # 0 point of potential in meters
-kB = 1; # Boltzmann constant in Joule per Kelvin
-mass = 1; # Mass of argon in kg
-# Simulation parameters to be removed from code
-
 # Parameters derived from other settings
 lCalc =  (1/rho)**(1/3)*(nParticles/4)**(1/3)*2**(2/3); # Calculation domain length
-a=(kB*tInitial/mass)**(1/2);                            # Used for Maxwell distribution
+a=(tInitial)**(1/2);                            # Used for Maxwell distribution
 
 # Post processing and plots
 oscLength=[50, 100, 150, 200, 250, 300, 500];           # Block lengths for error calculation

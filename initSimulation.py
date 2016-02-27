@@ -1,7 +1,7 @@
 # Init the simulation by placing the argon in a FCC grid and initalizing the velocities according to the maxwell distribution
 # Afterwards we also initialize the forces
 
-from calculateforces import calculateForces
+from argonMove import calculateForces
 import numpy as np
 import scipy.stats as stats
 import config
@@ -52,4 +52,4 @@ def initVelocities(velocities):
 def initSimulation(particles):
     initPositions(particles.positions);
     initVelocities(particles.velocities);
-    particles.forces,virial = calculateForces(particles.positions, particles.forces, np.array([0,0]), 0);
+    particles.forces, virial = calculateForces(particles.positions, particles.forces, np.array([0,0]), 0);
