@@ -7,11 +7,10 @@ from particles import Particles
 from initSimulation import initSimulation
 from argonMove import argonMove
 from checkResults import checkResults
-from plotResults import plotResults
 import timeit
 from particlesanimation import animationPlot
 from rescaleVelocity import rescaleVelocity
-from calcResult import calcResult
+from postProcess import postProcess
 
 # Start Timer
 start = timeit.default_timer()
@@ -52,22 +51,7 @@ for i in range(config.iterations):
     if(config.animation and i % config.animationIter == 0):
         anim.updateParticlePlot(particles);
 
-# Calculate errors
-for j in range( int( len(config.oscLength) ) ):
-    print("Block length=",config.oscLength[j])              
-    (pressureAvg, pressureError,cVAvg, cVError, tempAvg, tempError, ePParticleAvg, ePParticleError)=calcResult(pressure,eK,temp,eP,j)
-    print("Compressibility factor=",pressureAvg,"; Error:",pressureError)
-    print("cV=",cVAvg,"; Error:", cVError)
-    print("Temperature=",tempAvg,"; Error:", tempError)
-    print("Potential energy per particle=",ePParticleAvg,"; Error:",ePParticleError)
-    print(" ")
-    
-# Convert Ek and Ep to per particle for use in plotting
-eK /= config.nParticles;
-eP /= config.nParticles;  
-
-# Show program end
-plotResults(particles, temp, eK, eP, pressure, cV, displacement)
+postProcess(particles, temp, eK, eP, pressure, cV, displacement)
 
 # Stop timer
 stop = timeit.default_timer()
